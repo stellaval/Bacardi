@@ -75,5 +75,8 @@ function update() {
     if (cursors.up.isDown && player.body.touching.down) {
         player.body.velocity.y = -350;
     }
+    if(player.body.velocity.y > 350) {
+        Game_Over();
+    }
 }
 
