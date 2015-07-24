@@ -27,9 +27,7 @@ var Game = {
             isOnCloud = false;
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-
         game.world.setBounds(0, 0, 500, 40610);
-
         background = game.add.group();
         sky = background.create(0, 0, 'sky');
         sky.scale.setTo(1, 150);
@@ -41,7 +39,7 @@ var Game = {
         for (var i = ledgeDistance, len = game.world.height; i < len; i += ledgeDistance / 2) {
             var randomXCocktail = Math.floor(game.world.width * Math.random()) - 50;
             cocktail = cocktailGroup.create(randomXCocktail, i, 'cocktail');
-            cocktail.body.immovable = true;
+            // cocktail.body.immovable = true;
         }
 
         //Create platforms
