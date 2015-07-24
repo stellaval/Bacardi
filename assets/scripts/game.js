@@ -9,6 +9,7 @@ function preload() {
     game.load.image('ground', 'assets/images/platform.png');
     game.load.image('star', 'assets/images/star.png');
     game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+    game.load.image('bottom', 'assets/images/bottom.png');
 }
 
 
@@ -22,15 +23,15 @@ function create() {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    game.world.setBounds(0, 0, 500, 2000);
+    game.world.setBounds(0, 0, 500, 40610);
 
     background = game.add.group();
     sky = background.create(0, 0, 'sky');
-    sky.scale.setTo(1, 4);
+    sky.scale.setTo(1, 150);
 
     platforms = game.add.group();
     platforms.enableBody = true;
-    ground = platforms.create(0, game.world.height - 50, 'ground');
+    ground = platforms.create(0, game.world.height - 50, 'bottom');
     ground.scale.setTo(2, 2);
     ground.body.immovable = true;
 

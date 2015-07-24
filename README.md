@@ -2,7 +2,7 @@
 
 Team Bacardi for Group Project of the course "JS UI & DOM" in Telerik Academy.
 
-Our project is a HTML5 game resembling Icy Tower.
+Our project is a HTML5 game resembling Ice Tower.
 
 Team Members:
 
