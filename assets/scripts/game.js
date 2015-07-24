@@ -1,7 +1,11 @@
 var game,
     platforms,
     player,
-    introText;
+    introText,
+    cocktail,
+    cocktailGroup,
+    cocktailCounter = 0,
+    score;
 
 game = new Phaser.Game(500, 600, Phaser.CANVAS, '', {
     preload: preload,
@@ -12,7 +16,7 @@ game = new Phaser.Game(500, 600, Phaser.CANVAS, '', {
 function preload() {
     game.load.image('sky', 'assets/images/sky.png');
     game.load.image('ground', 'assets/images/platform.png');
-    game.load.image('star', 'assets/images/star.png');
+    game.load.image('cocktail', 'assets/images/cocktail.png');
     game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
     game.load.image('bottom', 'assets/images/bottom.png');
 }
@@ -24,7 +28,10 @@ function create() {
         sky,
         ledge,
         ledgeDistance = 150,
-        ledgeSide = 1;
+        ledgeSide = 1,
+        ledgeAll = [],
+        counter,
+        isOnCloud = false;
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -34,6 +41,18 @@ function create() {
     sky = background.create(0, 0, 'sky');
     sky.scale.setTo(1, 150);
 
+
+    //Create cocktails
+    cocktailGroup = game.add.group();
+    cocktailGroup.enableBody = true; 
+    game.physics.enable(cocktailGroup, Phaser.Physics.ARCADE);   
+    for (var i = ledgeDistance, len = game.world.height; i < len; i+= ledgeDistance/2){
+        var randomXCocktail = Math.floor(game.world.width * Math.random()) - 50;
+        cocktail = cocktailGroup.create(randomXCocktail, i, 'cocktail');  
+        cocktail.body.immovable = true;
+    }
+
+    //Create platforms
     platforms = game.add.group();
     platforms.enableBody = true;
     ground = platforms.create(0, game.world.height - 50, 'bottom');
@@ -44,8 +63,10 @@ function create() {
         ledge = platforms.create(250 * ledgeSide, i, 'ground');
         ledge.body.immovable = true;
         ledgeSide *= -1;
+        ledgeAll.push(ledge);
     }
 
+    //Create player
     player = game.add.sprite(game.world.centerX, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
 
@@ -69,10 +90,15 @@ function create() {
     }
 
     game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
+
+     //Show score in game world  - DOES NOT SHOW !! )):  used: http://phaser.io/examples/v2/text/update-text 
+    score = game.add.text(game.world.width/2, 0, 'SCORE ');
+    score.anchor.setTo(0.5, 0.5);
 }
 
 function update() {
     game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(player, cocktailGroup, collisionHandler, null);
 
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -95,4 +121,13 @@ function update() {
     if (player.body.velocity.y > 350) {
         Game_Over();
     }
+}
+
+function collisionHandler (player, cocktail) {
+    cocktailCounter++;
+    cocktail.kill();
+    updateScore();
+}
+function updateScore() {
+    score.setText('SCORE ' + cocktailCounter);
 }
