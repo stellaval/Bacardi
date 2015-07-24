@@ -5,7 +5,8 @@ var game,
     cocktail,
     cocktailGroup,
     cocktailCounter = 0,
-    score;
+    score = 0,
+    scoreText;
 
 game = new Phaser.Game(500, 600, Phaser.CANVAS, '', {
     preload: preload,
@@ -23,15 +24,37 @@ function preload() {
 
 
 function create() {
-    var ground,
-        background,
-        sky,
-        ledge,
-        ledgeDistance = 150,
-        ledgeSide = 1,
-        ledgeAll = [],
-        counter,
+    var counter,
         isOnCloud = false;
+
+    initEnvironment();
+
+    createCocktails();
+
+    createPlatforms();
+
+    createPlayer();
+
+    game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
+
+    //Show score in game world  - DOES NOT SHOW !! )):  used: http://phaser.io/examples/v2/text/update-text 
+    scoreText = game.add.text(10, game.world.height - 200, 'Score: 0', { textSize: '22px', fill: '#fff' });
+    // score.anchor.setTo(0.5, 0.5);
+}
+
+function update() {
+    game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(player, cocktailGroup, collisionHandler, null);
+
+    cursors = game.input.keyboard.createCursorKeys();
+
+    playerMovement();
+}
+
+// creates and draws the sky and backround and sets the world's boundaries
+function initEnvironment() {
+    var background,
+        sky;
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -40,19 +63,31 @@ function create() {
     background = game.add.group();
     sky = background.create(0, 0, 'sky');
     sky.scale.setTo(1, 150);
+}
 
+// creates and draws the cocktails that float around the level
+function createCocktails() {
+    var ledgeDistance = 150;
 
-    //Create cocktails
     cocktailGroup = game.add.group();
-    cocktailGroup.enableBody = true; 
-    game.physics.enable(cocktailGroup, Phaser.Physics.ARCADE);   
-    for (var i = ledgeDistance, len = game.world.height; i < len; i+= ledgeDistance/2){
+    cocktailGroup.enableBody = true;
+    game.physics.enable(cocktailGroup, Phaser.Physics.ARCADE);
+
+    for (var i = ledgeDistance, len = game.world.height; i < len; i += ledgeDistance / 2) {
         var randomXCocktail = Math.floor(game.world.width * Math.random()) - 50;
-        cocktail = cocktailGroup.create(randomXCocktail, i, 'cocktail');  
+        cocktail = cocktailGroup.create(randomXCocktail, i, 'cocktail');
         cocktail.body.immovable = true;
     }
+}
 
-    //Create platforms
+// creates and draws the platforms for the level
+function createPlatforms() {
+    var ledgeDistance = 150,
+        ground,
+        ledge,
+        ledgeSide = 1,
+        ledgeAll = [];
+
     platforms = game.add.group();
     platforms.enableBody = true;
     ground = platforms.create(0, game.world.height - 50, 'bottom');
@@ -65,8 +100,10 @@ function create() {
         ledgeSide *= -1;
         ledgeAll.push(ledge);
     }
+}
 
-    //Create player
+// initializes the player
+function createPlayer() {
     player = game.add.sprite(game.world.centerX, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
 
@@ -77,7 +114,7 @@ function create() {
     });
     introText.inputEnabled = true;
     introText.visible = true;
-    introText.events.onInputDown.add(enablePlayer, this);    
+    introText.events.onInputDown.add(enablePlayer, this);
 
     function enablePlayer() {
         player.body.bounce.y = 0.2;
@@ -88,20 +125,10 @@ function create() {
 
         introText.visible = false;
     }
-
-    game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
-
-     //Show score in game world  - DOES NOT SHOW !! )):  used: http://phaser.io/examples/v2/text/update-text 
-    score = game.add.text(game.world.width/2, 0, 'SCORE ');
-    score.anchor.setTo(0.5, 0.5);
 }
 
-function update() {
-    game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.collide(player, cocktailGroup, collisionHandler, null);
-
-    cursors = game.input.keyboard.createCursorKeys();
-
+// creates the player's physics
+function playerMovement() {
     player.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
@@ -119,15 +146,13 @@ function update() {
         player.body.velocity.y = -350;
     }
     if (player.body.velocity.y > 350) {
-        Game_Over();
+        this.state.start('Game_Over');
     }
 }
 
-function collisionHandler (player, cocktail) {
+function collisionHandler(player, cocktail) {
     cocktailCounter++;
+    score += 10;
+    scoreText.setText('Score: ' + score);
     cocktail.kill();
-    updateScore();
-}
-function updateScore() {
-    score.setText('SCORE ' + cocktailCounter);
 }
