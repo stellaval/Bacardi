@@ -1,8 +1,13 @@
 var game,
     platforms,
-    player;
+    player,
+    introText;
 
-game = new Phaser.Game(500, 600, Phaser.CANVAS, '', {preload: preload, create: create, update: update});
+game = new Phaser.Game(500, 600, Phaser.CANVAS, '', {
+    preload: preload,
+    create: create,
+    update: update
+});
 
 function preload() {
     game.load.image('sky', 'assets/images/sky.png');
@@ -41,13 +46,27 @@ function create() {
         ledgeSide *= -1;
     }
 
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    player = game.add.sprite(game.world.centerX, game.world.height - 150, 'dude');
     game.physics.arcade.enable(player);
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
-    player.body.collideWorldBounds = true;
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+    introText = game.add.text(200, game.world.height - 400, 'START\nGAME', {
+        font: "40px Arial",
+        fill: "#ffffff",
+        align: "center"
+    });
+    introText.inputEnabled = true;
+    introText.visible = true;
+    introText.events.onInputDown.add(enablePlayer, this);    
+
+    function enablePlayer() {
+        player.body.bounce.y = 0.2;
+        player.body.gravity.y = 300;
+        player.body.collideWorldBounds = true;
+        player.animations.add('left', [0, 1, 2, 3], 10, true);
+        player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+        introText.visible = false;
+    }
 
     game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
 }
@@ -62,12 +81,10 @@ function update() {
     if (cursors.left.isDown) {
         player.body.velocity.x = -150;
         player.animations.play('left');
-    }
-    else if (cursors.right.isDown) {
+    } else if (cursors.right.isDown) {
         player.body.velocity.x = 150;
         player.animations.play('right');
-    }
-    else {
+    } else {
         player.animations.stop();
         player.frame = 4;
     }
@@ -75,8 +92,7 @@ function update() {
     if (cursors.up.isDown && player.body.touching.down) {
         player.body.velocity.y = -350;
     }
-    if(player.body.velocity.y > 350) {
+    if (player.body.velocity.y > 350) {
         Game_Over();
     }
 }
-
