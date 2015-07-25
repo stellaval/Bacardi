@@ -19,7 +19,7 @@ var Game = {
         //fonts
         game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
         //audio files
-        game.load.audio('music', 'assets/audio/music/music.mp3');
+        // game.load.audio('music', 'assets/audio/music/music.mp3');
         game.load.audio('jump', 'assets/audio/effects/jump.mp3');
     },
     create: function () {
@@ -71,35 +71,16 @@ var Game = {
         game.physics.arcade.enable(player);
         player.body.velocity.setTo(200, 200);
 
-        introText = game.add.text(200, game.world.height - 400, 'START\nGAME', {
-            font: "40px Arial",
-            fill: "#ffffff",
-            align: "center"
-        });
-        introText.inputEnabled = true;
-        introText.visible = true;
-        introText.events.onInputDown.add(enablePlayer, this);
-
-        function enablePlayer() {
-            // player.body.bounce.setTo(0.8, 0);
-            player.body.gravity.y = 800;
-            player.body.collideWorldBounds = true;
-            player.animations.add('left', [0, 1, 2, 3], 10, true);
-            player.animations.add('right', [5, 6, 7, 8], 10, true);
-            player.body.drag.x = 120;
-
-            introText.visible = false;
-            //music starts playing when you press start game
-            this.music.play();
-        }
+        // player.body.bounce.setTo(0.8, 0);
+        player.body.gravity.y = 800;
+        player.body.collideWorldBounds = true;
+        player.animations.add('left', [0, 1, 2, 3], 10, true);
+        player.animations.add('right', [5, 6, 7, 8], 10, true);
+        player.body.drag.x = 120;
 
         game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
 
         drawScore();
-
-        this.music = this.game.add.audio('music');
-        this.music.volume = 0.5;
-        this.music.loop = true;
 
         jump = game.add.audio('jump');
         //This was moved here so our dude doesnt move around before the start

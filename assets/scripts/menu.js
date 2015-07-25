@@ -1,22 +1,24 @@
 var Menu = {
 
-    preload : function() {
-        // Loading images is required so that later on we can create sprites based on the them.
-        // The first argument is how our image will be refered to, 
-        // the second one is the path to our file.
-
-        //TODO: create Menu IMG-Button
-        //game.load.image('menu', './assets/images/menu.png');
+    preload: function () {        
+        game.load.image('blackScreen', 'assets/images/blackscreen.png');
+        game.load.image('startGame', 'assets/images/start.png');
+        game.load.audio('music', 'assets/audio/music/music.mp3');
     },
 
     create: function () {
-        // Add a sprite to your game, here the sprite will be the game's logo
-        // Parameters are : X , Y , image name (see above) 
-        //this.add.button(0, 0, 'menu', this.startGame, this);
+        var startGameScreen = game.add.group();
+        var background = startGameScreen.create(0, 0, 'blackScreen');
+
+        this.add.button(120, 200, 'startGame', this.startGame, this);
+        this.music = this.game.add.audio('music');
+        this.music.volume = 0.5;
+        this.music.loop = true;
     },
 
-    startGame : function () {
+    startGame: function () {
 
+        this.music.play();
         // Change the state to the actual game.
         this.state.start('Game');
 
