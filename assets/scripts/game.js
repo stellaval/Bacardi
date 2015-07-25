@@ -4,17 +4,18 @@ var platforms,
     cocktail,
     cocktailGroup,
     cocktailCounter = 0,
-    score;
+    scoreText,
+    score = 0;
 
 var Game = {
-    preload: function() {
+    preload: function () {
         game.load.image('sky', 'assets/images/sky.png');
         game.load.image('ground', 'assets/images/platform.png');
         game.load.image('cocktail', 'assets/images/cocktail.png');
         game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
         game.load.image('bottom', 'assets/images/bottom.png');
     },
-    create: function() {
+    create: function () {
         var ground,
             background,
             sky,
@@ -26,9 +27,7 @@ var Game = {
             isOnCloud = false;
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-
         game.world.setBounds(0, 0, 500, 40610);
-
         background = game.add.group();
         sky = background.create(0, 0, 'sky');
         sky.scale.setTo(1, 150);
@@ -40,7 +39,7 @@ var Game = {
         for (var i = ledgeDistance, len = game.world.height; i < len; i += ledgeDistance / 2) {
             var randomXCocktail = Math.floor(game.world.width * Math.random()) - 50;
             cocktail = cocktailGroup.create(randomXCocktail, i, 'cocktail');
-            cocktail.body.immovable = true;
+            // cocktail.body.immovable = true;
         }
 
         //Create platforms
@@ -83,11 +82,9 @@ var Game = {
 
         game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
 
-        //Show score in game world  - DOES NOT SHOW !! )):  used: http://phaser.io/examples/v2/text/update-text 
-        score = game.add.text(game.world.width / 2, 0, 'SCORE ');
-        score.anchor.setTo(0.5, 0.5);
+        scoreText = game.add.text(10, game.world.height - 500, 'Score: 0', { textSize: '22px', fill: '#fff' });
     },
-    update: function() {
+    update: function () {
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(player, cocktailGroup, collisionHandler, null);
 
@@ -110,17 +107,14 @@ var Game = {
             player.body.velocity.y = -350;
         }
         if (player.body.velocity.y > 350) {
-            Game_Over();
+            game.state.start('Game_Over');
         }
 
         function collisionHandler(player, cocktail) {
             cocktailCounter++;
             cocktail.kill();
-            updateScore();
-        }
-
-        function updateScore() {
-            score.setText('SCORE ' + cocktailCounter);
+            score += 10;
+            scoreText.text = 'Score: ' + score;
         }
     }
 }
