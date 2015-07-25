@@ -102,14 +102,16 @@ var Game = {
         this.music.loop = true;
 
         jump = game.add.audio('jump');
+        //This was moved here so our dude doesnt move around before the start
+        //of the game but it must not be inside the update function because it
+        //prevents the dude from sliding!!!
+        player.body.velocity.x = 0;
     },
     update: function () {
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(player, cocktailGroup, collisionHandler, null);
 
         cursors = game.input.keyboard.createCursorKeys();
-
-         player.body.velocity.x = 0;
 
         if (cursors.left.isDown) {
             player.body.velocity.x = -150;
