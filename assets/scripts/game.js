@@ -75,7 +75,7 @@ var Game = {
         introText.events.onInputDown.add(enablePlayer, this);
 
         function enablePlayer() {
-            //player.body.bounce.y = 0.2;
+            // player.body.bounce.setTo(0.8, 0);
             player.body.gravity.y = 300;
             player.body.collideWorldBounds = true;
             player.animations.add('left', [0, 1, 2, 3], 10, true);
@@ -98,9 +98,11 @@ var Game = {
 
         if (cursors.left.isDown) {
             player.body.velocity.x = -150;
+            // player.body.acceleration.x = -150;
             player.animations.play('left');
         } else if (cursors.right.isDown) {
             player.body.velocity.x = 150;
+            // player.body.acceleration.x = 150;
             player.animations.play('right');
         } else {
             player.animations.stop();
@@ -108,6 +110,7 @@ var Game = {
         }
 
         if (cursors.up.isDown && player.body.touching.down) {
+            console.log('asdasdas');
             player.body.velocity.y = -350;
         }
         if (player.body.velocity.y > 350) {
