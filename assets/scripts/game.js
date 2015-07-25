@@ -12,8 +12,9 @@ var Game = {
         game.load.image('sky', 'assets/images/sky.png');
         game.load.image('ground', 'assets/images/platform.png');
         game.load.image('cocktail', 'assets/images/cocktail.png');
-        game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
         game.load.image('bottom', 'assets/images/bottom.png');
+        game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+        game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
     },
     create: function () {
         var ground,
@@ -117,7 +118,7 @@ var Game = {
             cocktailCounter++;
             cocktail.kill();
             score += 10;
-            scoreText.text = 'Score: ' + score;
+            scoreText.setText('Score: ' + score);
         }
     }
 }
@@ -126,7 +127,8 @@ function drawScore() {
     var scoreSprite = game.add.sprite(0, 0);
     scoreSprite.fixedToCamera = true;
 
-    scoreText = game.add.text(0, 0, 'Score: 0', { textSize: '22px', fill: '#fff' });
+    scoreText = game.add.bitmapText(0, -80, 'desyrel', 'Score: 0', 38);
+    // scoreText = game.add.text(0, 0, 'Score: 0', { textSize: '22px', fill: '#fff' });
     scoreSprite.addChild(scoreText);
 
     scoreSprite.cameraOffset.x = 10;
