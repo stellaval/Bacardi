@@ -19,7 +19,7 @@ var Game_Over = {
         // Add text with information about the score from last game.
         game.add.text(235, 348, "LAST SCORE", { font: "bold 16px sans-serif", fill: "#ffffff", align: "center"});
         game.add.text(350, 348, score.toString(), { font: "bold 20px sans-serif", fill: "#fff", align: "center" });
-
+		score = 0;
     },
 
     startGame: function () {
