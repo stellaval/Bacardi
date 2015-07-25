@@ -27,7 +27,9 @@ var Game = {
             isOnCloud = false;
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
+
         game.world.setBounds(0, 0, 500, 40610);
+
         background = game.add.group();
         sky = background.create(0, 0, 'sky');
         sky.scale.setTo(1, 150);
@@ -60,6 +62,7 @@ var Game = {
         //Create player
         player = game.add.sprite(game.world.centerX, game.world.height - 150, 'dude');
         game.physics.arcade.enable(player);
+        player.body.velocity.setTo(200, 200);
 
         introText = game.add.text(200, game.world.height - 400, 'START\nGAME', {
             font: "40px Arial",
@@ -82,7 +85,7 @@ var Game = {
 
         game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
 
-        scoreText = game.add.text(10, game.world.height - 500, 'Score: 0', { textSize: '22px', fill: '#fff' });
+        drawScore();
     },
     update: function () {
         game.physics.arcade.collide(player, platforms);
@@ -117,4 +120,15 @@ var Game = {
             scoreText.text = 'Score: ' + score;
         }
     }
+}
+
+function drawScore() {
+    var scoreSprite = game.add.sprite(0, 0);
+    scoreSprite.fixedToCamera = true;
+
+    scoreText = game.add.text(0, 0, 'Score: 0', { textSize: '22px', fill: '#fff' });
+    scoreSprite.addChild(scoreText);
+
+    scoreSprite.cameraOffset.x = 10;
+    scoreSprite.cameraOffset.y = 100;
 }
