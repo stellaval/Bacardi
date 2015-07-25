@@ -9,12 +9,18 @@ var platforms,
 
 var Game = {
     preload: function () {
+        //pictures
         game.load.image('sky', 'assets/images/sky.png');
         game.load.image('ground', 'assets/images/platform.png');
         game.load.image('cocktail', 'assets/images/cocktail.png');
         game.load.image('bottom', 'assets/images/bottom.png');
+        //sprites
         game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+        //fonts
         game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
+        //audio files
+        game.load.audio('music', 'assets/audio/music/music.mp3');
+        game.load.audio('jump', 'assets/audio/effects/jump.mp3');
     },
     create: function () {
         var ground,
@@ -83,11 +89,19 @@ var Game = {
             player.body.drag.x = 120;
 
             introText.visible = false;
+            //music starts playing when you press start game
+            this.music.play();
         }
 
         game.camera.follow(player, Phaser.Camera.FOLLOW_TOPDOWN);
 
         drawScore();
+
+        this.music = this.game.add.audio('music');
+        this.music.volume = 0.5;
+        this.music.loop = true;
+
+        jump = game.add.audio('jump');
     },
     update: function () {
         game.physics.arcade.collide(player, platforms);
@@ -95,7 +109,7 @@ var Game = {
 
         cursors = game.input.keyboard.createCursorKeys();
 
-        // player.body.velocity.x = 0;
+         player.body.velocity.x = 0;
 
         if (cursors.left.isDown) {
             player.body.velocity.x = -150;
@@ -111,7 +125,7 @@ var Game = {
         }
 
         if (cursors.up.isDown && player.body.touching.down) {
-            console.log('asdasdas');
+            jump.play();
             player.body.velocity.y = -550;
         }
         if (player.body.velocity.y > 600) {
