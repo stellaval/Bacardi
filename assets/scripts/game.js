@@ -81,7 +81,6 @@ var Game = {
         // player.body.bounce.setTo(0.8, 0);
         player.body.gravity.y = 800;
         player.body.collideWorldBounds = true;
-        player.body.checkCollision.up = false;
         player.animations.add('left', [0, 1, 2, 3], 10, true);
         player.animations.add('right', [5, 6, 7, 8], 10, true);
         player.body.drag.x = 120;
