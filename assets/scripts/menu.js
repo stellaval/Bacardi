@@ -5,7 +5,7 @@ var Menu = (function () {
         preload: function () {
             game.load.image('blackScreen', 'assets/images/blackscreen.png');
             game.load.image('startGame', 'assets/images/start.png');
-            game.load.audio('music', 'assets/audio/music/music.mp3');
+            //game.load.audio('music', 'assets/audio/music/music.mp3');
             game.load.audio('menu', 'assets/audio/music/menu.mp3');
         },
 
@@ -18,9 +18,7 @@ var Menu = (function () {
             menuSound.play();
 
             this.add.button(120, 200, 'startGame', this.startGame, this);
-            this.music = this.game.add.audio('music');
-            this.music.volume = 4;
-            this.music.loop = true;
+            
 
 
         },
@@ -28,7 +26,6 @@ var Menu = (function () {
         startGame: function () {
 
             menuSound.stop();
-            this.music.play();
             // Change the state to the actual game.
             this.state.start('Game');
 

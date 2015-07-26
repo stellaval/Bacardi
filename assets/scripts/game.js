@@ -19,7 +19,7 @@ var Game = {
         //fonts
         game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
         //audio files
-        // game.load.audio('music', 'assets/audio/music/music.mp3');
+        game.load.audio('music', 'assets/audio/music/music.mp3');
         game.load.audio('jump', 'assets/audio/effects/jump.mp3');
 
     },
@@ -94,6 +94,12 @@ var Game = {
         //of the game but it must not be inside the update function because it
         //prevents the dude from sliding!!!
         player.body.velocity.x = 0;
+
+        //start music
+        this.gameMusic = this.game.add.audio('music');
+        this.gameMusic.volume = 4;
+        this.gameMusic.loop = true;
+        this.gameMusic.play();
     },
     update: function() {
         game.physics.arcade.collide(player, platforms);
@@ -119,6 +125,7 @@ var Game = {
             player.body.velocity.y = -550;
         }
         if (player.body.velocity.y > 600) {
+            this.gameMusic.stop();
             game.state.start('Game_Over');
         }
 
