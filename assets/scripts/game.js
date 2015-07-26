@@ -7,8 +7,13 @@ var platforms,
     scoreText,
     score = 0;
 
+function getRandomSize(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+
 var Game = {
-    preload: function() {
+    preload: function () {
         //pictures
         game.load.image('sky', 'assets/images/sky.png');
         game.load.image('ground', 'assets/images/platform.png');
@@ -23,7 +28,7 @@ var Game = {
         game.load.audio('jump', 'assets/audio/effects/jump.mp3');
 
     },
-    create: function() {
+    create: function () {
         var ground,
             background,
             sky,
@@ -62,17 +67,17 @@ var Game = {
 
         for (var i = 0, len = game.world.height - ledgeDistance; i < len; i += ledgeDistance) {
             ledge = platforms.create(250 * ledgeSide, i, 'ground');
-            ledge.scale.setTo(0.5, 0.8);
+            ledge.scale.setTo(getRandomSize(0.2, 0.8), 0.8);
             ledge.body.immovable = true;
             ledge.body.checkCollision.down = false;
-            ledge.body.allowGravity = false;
+            ledge.body.allowGravity = true;
             ledge.body.bounce.set(1);
             ledge.body.velocity.x = Math.random() * (200 - 50) + 50;
             ledge.body.collideWorldBounds = true;
             ledgeSide *= -1;
             ledgeAll.push(ledge);
-        }
 
+        }
         //Create player
         player = game.add.sprite(game.world.centerX, game.world.height - 150, 'dude');
         game.physics.arcade.enable(player);
@@ -101,7 +106,7 @@ var Game = {
         this.gameMusic.loop = true;
         this.gameMusic.play();
     },
-    update: function() {
+    update: function () {
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(player, cocktailGroup, collisionHandler, null);
 
@@ -136,7 +141,7 @@ var Game = {
             scoreText.setText('Score: ' + score);
         }
     }
-}
+};
 
 function drawScore() {
     var scoreSprite = game.add.sprite(0, 0);
