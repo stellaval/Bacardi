@@ -19,7 +19,7 @@ var Menu = (function () {
 
             this.add.button(120, 200, 'startGame', this.startGame, this);
             this.music = this.game.add.audio('music');
-            this.music.volume = 0.5;
+            this.music.volume = 4;
             this.music.loop = true;
 
 
