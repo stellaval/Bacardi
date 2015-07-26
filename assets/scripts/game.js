@@ -8,7 +8,7 @@ var platforms,
     score = 0;
 
 var Game = {
-    preload: function () {
+    preload: function() {
         //pictures
         game.load.image('sky', 'assets/images/sky.png');
         game.load.image('ground', 'assets/images/platform.png');
@@ -23,7 +23,7 @@ var Game = {
         game.load.audio('jump', 'assets/audio/effects/jump.mp3');
 
     },
-    create: function () {
+    create: function() {
         var ground,
             background,
             sky,
@@ -36,7 +36,7 @@ var Game = {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        game.world.setBounds(0, 0, 500, 40610);
+        game.world.setBounds(0, 0, 500, 40550);
 
         background = game.add.group();
         sky = background.create(0, 0, 'sky');
@@ -60,9 +60,15 @@ var Game = {
         ground.scale.setTo(2, 2);
         ground.body.immovable = true;
 
-        for (var i = ledgeDistance, len = game.world.height; i < len; i += ledgeDistance) {
+        for (var i = 0, len = game.world.height - ledgeDistance; i < len; i += ledgeDistance) {
             ledge = platforms.create(250 * ledgeSide, i, 'ground');
+            ledge.scale.setTo(0.5, 0.8);
             ledge.body.immovable = true;
+            ledge.body.checkCollision.down = false;
+            ledge.body.allowGravity = false;
+            ledge.body.bounce.set(1);
+            ledge.body.velocity.x = Math.random() * (200 - 50) + 50;
+            ledge.body.collideWorldBounds = true;
             ledgeSide *= -1;
             ledgeAll.push(ledge);
         }
@@ -90,7 +96,7 @@ var Game = {
         //prevents the dude from sliding!!!
         player.body.velocity.x = 0;
     },
-    update: function () {
+    update: function() {
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(player, cocktailGroup, collisionHandler, null);
 
