@@ -21,6 +21,7 @@ var Game = {
         //audio files
         // game.load.audio('music', 'assets/audio/music/music.mp3');
         game.load.audio('jump', 'assets/audio/effects/jump.mp3');
+
     },
     create: function () {
         var ground,
