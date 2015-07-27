@@ -11,7 +11,6 @@ function getRandomSize(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-
 var Game = {
     preload: function () {
         //pictures
@@ -47,16 +46,6 @@ var Game = {
         sky = background.create(0, 0, 'sky');
         sky.scale.setTo(1, 150);
 
-        //Create cocktails
-        cocktailGroup = game.add.group();
-        cocktailGroup.enableBody = true;
-        game.physics.enable(cocktailGroup, Phaser.Physics.ARCADE);
-        for (var i = ledgeDistance, len = game.world.height; i < len; i += ledgeDistance / 2) {
-            var randomXCocktail = Math.floor(game.world.width * Math.random()) - 50;
-            cocktail = cocktailGroup.create(randomXCocktail, i, 'cocktail');
-            // cocktail.body.immovable = true;
-        }
-
         //Create platforms
 
         platforms = game.add.group();
@@ -70,15 +59,27 @@ var Game = {
             ledge.scale.setTo(getRandomSize(0.2, 0.8), 0.8);
             ledge.body.immovable = true;
             ledge.body.checkCollision.down = false;
-            ledge.body.allowGravity = true;
+            ledge.body.allowGravity = false;
             ledge.body.bounce.set(1);
             ledge.body.velocity.x = Math.random() * (200 - 50) + 50;
             ledge.body.collideWorldBounds = true;
             ledgeSide *= -1;
             ledgeAll.push(ledge);
-
         }
+
+        //Create cocktails
+
+        cocktailGroup = game.add.group();
+        cocktailGroup.enableBody = true;
+        game.physics.enable(cocktailGroup, Phaser.Physics.ARCADE);
+        for (var i = ledgeDistance, len = game.world.height; i < len; i += ledgeDistance) {
+            var randomXCocktail = Math.floor(getRandomSize(50, game.world.width - 50));
+            cocktail = cocktailGroup.create(randomXCocktail, i - 50, 'cocktail');
+            // cocktail.body.immovable = true;
+        }
+
         //Create player
+
         player = game.add.sprite(game.world.centerX, game.world.height - 150, 'dude');
         game.physics.arcade.enable(player);
         player.body.velocity.setTo(200, 200);
