@@ -23,7 +23,7 @@ var Game = {
         //fonts
         game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
         //audio files
-        game.load.audio('music', 'assets/audio/music/music.mp3');
+        game.load.audio('music', 'assets/audio/music/GameMusic.mp3');
         game.load.audio('jump', 'assets/audio/effects/jump.mp3');
 
     },
