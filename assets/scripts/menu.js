@@ -8,7 +8,7 @@ var Menu = (function () {
             game.load.image('startGame', 'assets/images/start.png');
             game.load.image('cocktailMenu','assets/images/cocktailMenu.png' );
             //game.load.audio('music', 'assets/audio/music/music.mp3');
-            game.load.audio('menu', 'assets/audio/music/menu.mp3');
+            game.load.audio('menu', 'assets/audio/music/Bacardi.mp3');
         },
 
 
