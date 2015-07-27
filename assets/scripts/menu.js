@@ -4,9 +4,9 @@ var Menu = (function () {
 
         preload: function () {
             game.load.image('blackScreen', 'assets/images/bacardi.jpg');
-            game.load.image('feat','assets/images/featuring.png' );
             game.load.image('makers','assets/images/makers.png' );
             game.load.image('startGame', 'assets/images/start.png');
+            game.load.image('cocktailMenu','assets/images/cocktailMenu.png' );
             //game.load.audio('music', 'assets/audio/music/music.mp3');
             game.load.audio('menu', 'assets/audio/music/menu.mp3');
         },
@@ -20,10 +20,15 @@ var Menu = (function () {
 
             // adding background
             var background = game.add.image(0, 0, 'blackScreen');
-            //adding text makers
+            //adding  makers
             var makers = game.add.image(285,425,'makers');
 
             this.add.button(120, 200, 'startGame', this.startGame, this);
+
+            // add animation falling cocktails:)
+            var emitter = game.add.emitter(100, 480);
+            emitter.makeParticles('cocktailMenu');
+            emitter.start(false, 3000, 200);
 
 
 
