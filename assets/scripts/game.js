@@ -85,7 +85,7 @@ var Game = {
 
         //Create player
 
-        player = game.add.sprite(game.world.centerX, game.world.height - 150, 'dude');
+        player = game.add.sprite(game.world.centerX, game.world.height - 150, selectedCharacter);
         game.physics.arcade.enable(player);
         player.body.velocity.setTo(200, 200);
 
