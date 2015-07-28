@@ -19,7 +19,7 @@ var Game = {
         game.load.image('cocktail', 'assets/images/cocktail.png');
         game.load.image('bottom', 'assets/images/bottom.png');
         //sprites
-        game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+        game.load.spritesheet('dude', 'assets/images/dude.png', 76, 62);
         //fonts
         game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
         //audio files
