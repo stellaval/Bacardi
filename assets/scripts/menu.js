@@ -1,4 +1,4 @@
-var selectedCharacter = '';
+var selectedCharacter = 'dude';
 var Menu = (function () {
     var menuSound,
         oink,
