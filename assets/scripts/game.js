@@ -23,6 +23,7 @@ var Game = {
             game.load.spritesheet('pig', 'assets/images/pig.png', 76, 57);
         } else {
             game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+        }
         
         //fonts
         game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
