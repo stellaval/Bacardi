@@ -19,7 +19,11 @@ var Game = {
         game.load.image('cocktail', 'assets/images/cocktail.png');
         game.load.image('bottom', 'assets/images/bottom.png');
         //sprites
-        game.load.spritesheet('dude', 'assets/images/dude.png', 76, 57);
+        if (selectedCharacter == 'pig') {
+            game.load.spritesheet('pig', 'assets/images/pig.png', 76, 57);
+        } else {
+            game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+        
         //fonts
         game.load.bitmapFont('desyrel', 'assets/fonts/desyrel.png', 'assets/fonts/desyrel.xml');
         //audio files
