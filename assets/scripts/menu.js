@@ -8,10 +8,12 @@ var Menu = (function () {
         preload: function () {
             game.load.image('blackScreen', 'assets/images/bacardi.jpg');
             game.load.image('makers','assets/images/makers.png' );
-            game.load.image('startGame', 'assets/images/startGame.png');
+            game.load.image('cocktailMenu','assets/images/cocktailMenu.png' );
+            //buttons
+            game.load.image('startGame', 'assets/images/startButton.png');
             game.load.image('pig', 'assets/images/pigButton.png');
             game.load.image('dude', 'assets/images/dudeButton.png');
-            game.load.image('cocktailMenu','assets/images/cocktailMenu.png' );
+            game.load.image('cat', 'assets/images/catButton.png');
             //game.load.audio('music', 'assets/audio/music/music.mp3');
             game.load.audio('menu', 'assets/audio/music/Bacardi.lite.mp3');
             game.load.audio('oink', 'assets/audio/effects/oink.mp3');
@@ -34,9 +36,11 @@ var Menu = (function () {
             // character selection
             this.add.button(165,157, 'pig', this.choosePig, this);
             this.add.button(260,157, 'dude', this.chooseDude, this);
+            this.add.button(300,300, 'cat', this.chooseCat, this);
             // button sounds
             oink = game.add.audio('oink');
             dudeSound = game.add.audio('dudeSound');
+            meow = game.add.audio('meow');
 
             // add animation falling cocktails:)
             var emitter = game.add.emitter(100, 480);
@@ -47,6 +51,10 @@ var Menu = (function () {
 
 
         },
+        chooseCat: fucntion() {
+            //meow.play();
+            // selectedCharacter = 'cat';
+        }
 
         choosePig: function () {
             oink.play();

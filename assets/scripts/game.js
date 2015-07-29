@@ -101,9 +101,7 @@ var Game = {
         drawScore();
 
         jump = game.add.audio('jump');
-        //This was moved here so our dude doesnt move around before the start
-        //of the game but it must not be inside the update function because it
-        //prevents the dude from sliding!!!
+        
         player.body.velocity.x = 0;
 
         //start music
