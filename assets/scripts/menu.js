@@ -32,11 +32,11 @@ var Menu = (function () {
             // adding  makers
             var makers = game.add.image(285,425,'makers');
             // start button
-            this.add.button(165, 100, 'startGame', this.startGame, this);
+            this.add.button(160, 100, 'startGame', this.startGame, this);
             // character selection
-            this.add.button(165,157, 'pig', this.choosePig, this);
-            this.add.button(260,157, 'dude', this.chooseDude, this);
-            this.add.button(300,300, 'cat', this.chooseCat, this);
+            this.add.button(160,163, 'pig', this.choosePig, this);
+            this.add.button(230,163, 'dude', this.chooseDude, this);
+            this.add.button(300,163, 'cat', this.chooseCat, this);
             // button sounds
             oink = game.add.audio('oink');
             dudeSound = game.add.audio('dudeSound');
@@ -51,10 +51,11 @@ var Menu = (function () {
 
 
         },
-        chooseCat: fucntion() {
+
+        chooseCat: function () {
             //meow.play();
             // selectedCharacter = 'cat';
-        }
+        },
 
         choosePig: function () {
             oink.play();
