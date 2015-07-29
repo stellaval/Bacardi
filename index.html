@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>Game</title>
     <script src='assets/scripts/bower_components/phaser/build/phaser.min.js'></script>
+    <script src='assets/scripts/bower_components/raphael.js'></script>
+    <style>
+    </style>
 </head>
 <body>
 
-<svg id="container" width="300" height="200">
-    <rect id ='r' height="344" width="23" fill="red"></rect>
-</svg>
-
-<script type="application/javascript">
+<div id="container"></div>
+<script src='assets/scripts/svg_drawer.js'></script>
+<script>
 
     function loadJS(file) {
         // DOM: Create the script element
@@ -53,11 +54,8 @@
     }
 
     // one-time event
-    onetime(document.getElementById("r"), "click", handler);
-
+    onetime(document.getElementById("container"), "click", handler);
 </script>
-
-
 
 </body>
 </html>
