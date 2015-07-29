@@ -13,7 +13,7 @@ var Menu = (function () {
             game.load.image('dude', 'assets/images/dudeButton.png');
             game.load.image('cocktailMenu','assets/images/cocktailMenu.png' );
             //game.load.audio('music', 'assets/audio/music/music.mp3');
-            game.load.audio('menu', 'assets/audio/music/Bacardi.mp3');
+            game.load.audio('menu', 'assets/audio/music/Bacardi.lite.mp3');
             game.load.audio('oink', 'assets/audio/effects/oink.mp3');
             game.load.audio('dudeSound', 'assets/audio/effects/dudeSound.mp3');
         },
