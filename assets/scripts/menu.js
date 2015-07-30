@@ -38,12 +38,18 @@ var Menu = (function () {
             //adding text
             game.add.image(0, 5, 'selectPlayer');
 
+            // button sounds
+            oink = game.add.audio('oink');
+            dudeSound = game.add.audio('dudeSound');
+            meow = game.add.audio('meow');
+
             // character selection
             piggy = this.add.button(160, 163, 'pig', this.choosePig, this);
 
             piggy.onInputOver.add(function() {
                 piggy.loadTexture('pigHover');
                 piggy.animations.play('pigHover');
+                oink.play();
             }, this);
 
             piggy.onInputOut.add(function() {
@@ -56,6 +62,7 @@ var Menu = (function () {
             dude.onInputOver.add(function() {
                 dude.loadTexture('dudeHover');
                 dude.animations.play('dudeHover');
+                dudeSound.play();
             }, this);
 
             dude.onInputOut.add(function() {
@@ -68,17 +75,13 @@ var Menu = (function () {
             cat.onInputOver.add(function() {
                 cat.loadTexture('catHover');
                 cat.animations.play('catHover');
+                meow.play();
             }, this);
 
             cat.onInputOut.add(function() {
                 cat.loadTexture('cat');
                 cat.animations.play('cat');
             }, this);
-
-            // button sounds
-            oink = game.add.audio('oink');
-            dudeSound = game.add.audio('dudeSound');
-            meow = game.add.audio('meow');
 
             // add animation falling cocktails:)
             var emitter = game.add.emitter(100, 480);
@@ -88,19 +91,16 @@ var Menu = (function () {
         },
 
         chooseCat: function () {
-            meow.play();
             selectedCharacter = 'cat';
             this.startGame();
         },
 
         choosePig: function () {
-            oink.play();
             selectedCharacter = 'pig';
             this.startGame();
         },
 
         chooseDude: function () {
-            dudeSound.play();
             selectedCharacter = 'dude';
             this.startGame();
         },
