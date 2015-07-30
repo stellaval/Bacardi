@@ -18,6 +18,7 @@ var Menu = (function () {
             game.load.audio('menu', 'assets/audio/music/Bacardi.lite.mp3');
             game.load.audio('oink', 'assets/audio/effects/oink.mp3');
             game.load.audio('dudeSound', 'assets/audio/effects/dudeSound.mp3');
+            game.load.audio('meow', 'assets/audio/effects/meow.mp3');
         },
 
 
@@ -53,8 +54,8 @@ var Menu = (function () {
         },
 
         chooseCat: function () {
-            //meow.play();
-            // selectedCharacter = 'cat';
+            meow.play();
+            selectedCharacter = 'cat';
         },
 
         choosePig: function () {

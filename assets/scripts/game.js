@@ -21,6 +21,8 @@ var Game = {
         //sprites
         if (selectedCharacter == 'pig') {
             game.load.spritesheet('pig', 'assets/images/pig.png', 76, 57);
+        }else if(selectedCharacter == 'cat') {
+            game.load.spritesheet('cat', 'assets/images/cat.png', 75, 57);
         } else {
             game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
         }
