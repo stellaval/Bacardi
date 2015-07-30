@@ -3,62 +3,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Game</title>
-    <script src='assets/scripts/bower_components/phaser/build/phaser.min.js'></script>
-    <script src='assets/scripts/bower_components/raphael.js'></script>
-    <script src='assets/scripts/menu.js'></script>
-    <script src='assets/scripts/game.js'></script>
-    <script src='assets/scripts/game_over.js'></script>
-    <style>
-    </style>
+    <style></style>
 </head>
 <body>
-
 <div id="container"></div>
+<script src='assets/scripts/bower_components/phaser/build/phaser.min.js'></script>
+<script src='assets/scripts/bower_components/raphael.js'></script>
+<script src='assets/scripts/menu.js'></script>
+<script src='assets/scripts/game.js'></script>
+<script src='assets/scripts/game_over.js'></script>
 <script src='assets/scripts/svg_drawer.js'></script>
-<script>
-
-    function loadJS(file) {
-        // DOM: Create the script element
-        var jsElm = document.createElement("script");
-        // set the type attribute
-        jsElm.type = "application/javascript";
-        // make the script element load file
-        jsElm.src = file;
-        // finally insert the element to the body element in order to load the script
-        document.body.appendChild(jsElm);
-    }
-
-    function loadAllGame(){
-       // loadJS('assets/scripts/menu.js');
-       // loadJS('assets/scripts/game.js');
-        //loadJS('assets/scripts/game_over.js');
-        loadJS('assets/scripts/main.js');
-    }
-
-    // create a one-time event
-    function onetime(node, type, callback) {
-
-        // create event
-        node.addEventListener(type, function(e) {
-            // remove event
-            e.target.removeEventListener(e.type, arguments.callee);
-            // call handler
-            return callback(e);
-        });
-
-    }
-
-    // handler function
-    function handler(e) {
-        loadAllGame();
-        var parent = document.getElementsByTagName('body')[0];
-        var child = document.getElementById('container');
-        parent.removeChild(child);
-    }
-
-    // one-time event
-    onetime(document.getElementById("container"), "click", handler);
-</script>
-
+<script src="assets/scripts/game-loader.js"></script>
 </body>
 </html>
