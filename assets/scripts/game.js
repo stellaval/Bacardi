@@ -1,3 +1,6 @@
+
+var score=0;
+
 var Game = (function () {
     var platforms,
         player,
@@ -5,8 +8,8 @@ var Game = (function () {
         cocktail,
         cocktailGroup,
         cocktailCounter = 0,
-        scoreText,
-        score = 0;
+        scoreText;
+
 
     var Game = {
         preload: function () {
