@@ -2,7 +2,10 @@ var selectedCharacter = 'dude';
 var Menu = (function () {
     var menuSound,
         oink,
-        dudeSound;
+        dudeSound,
+        piggy,
+        dude,
+        cat;
 
     var Menu = {
         preload: function () {
@@ -10,10 +13,12 @@ var Menu = (function () {
             game.load.image('makers','assets/images/makers.png' );
             game.load.image('cocktailMenu','assets/images/cocktailMenu.png' );
             //buttons
-            game.load.image('startGame', 'assets/images/startButton.png');
             game.load.image('pig', 'assets/images/pigButton.png');
+            game.load.image('pigHover', 'assets/images/pigButtonHover.png');
             game.load.image('dude', 'assets/images/dudeButton.png');
+            game.load.image('dudeHover', 'assets/images/dudeButtonHover.png');
             game.load.image('cat', 'assets/images/catButton.png');
+            game.load.image('catHover', 'assets/images/catButtonHover.png');
             //audio
             game.load.audio('menu', 'assets/audio/music/Bacardi.lite.mp3');
             game.load.audio('oink', 'assets/audio/effects/oink.mp3');
@@ -28,14 +33,44 @@ var Menu = (function () {
             // adding background
             var background = game.add.image(0, 0, 'blackScreen');
             // adding  makers
-            var makers = game.add.image(285,425,'makers');
-            // start button
-            this.add.button(160, 100, 'startGame', this.startGame, this);
+            var makers = game.add.image(285, 425,'makers');
 
             // character selection
-            this.add.button(160,163, 'pig', this.choosePig, this);
-            this.add.button(230,163, 'dude', this.chooseDude, this);
-            this.add.button(300,163, 'cat', this.chooseCat, this);
+            piggy = this.add.button(160, 163, 'pig', this.choosePig, this);
+
+            piggy.onInputOver.add(function() {
+                piggy.loadTexture('pigHover');
+                piggy.animations.play('pigHover');
+            }, this);
+
+            piggy.onInputOut.add(function() {
+                piggy.loadTexture('pig');
+                piggy.animations.play('pig');
+            }, this);
+
+            dude = this.add.button(230, 163, 'dude', this.chooseDude, this);
+
+            dude.onInputOver.add(function() {
+                dude.loadTexture('dudeHover');
+                dude.animations.play('dudeHover');
+            }, this);
+
+            dude.onInputOut.add(function() {
+                dude.loadTexture('dude');
+                dude.animations.play('dude');
+            }, this);
+
+            cat = this.add.button(300, 163, 'cat', this.chooseCat, this);
+
+            cat.onInputOver.add(function() {
+                cat.loadTexture('catHover');
+                cat.animations.play('catHover');
+            }, this);
+
+            cat.onInputOut.add(function() {
+                cat.loadTexture('cat');
+                cat.animations.play('cat');
+            }, this);
 
             // button sounds
             oink = game.add.audio('oink');
@@ -52,16 +87,19 @@ var Menu = (function () {
         chooseCat: function () {
             meow.play();
             selectedCharacter = 'cat';
+            this.startGame();
         },
 
         choosePig: function () {
             oink.play();
             selectedCharacter = 'pig';
+            this.startGame();
         },
 
         chooseDude: function () {
             dudeSound.play();
             selectedCharacter = 'dude';
+            this.startGame();
         },
 
         startGame: function () {
