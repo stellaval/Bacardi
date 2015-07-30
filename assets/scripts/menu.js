@@ -12,6 +12,7 @@ var Menu = (function () {
             game.load.image('blackScreen', 'assets/images/bacardi.jpg');
             game.load.image('makers','assets/images/makers.png' );
             game.load.image('cocktailMenu','assets/images/cocktailMenu.png' );
+            game.load.image('selectPlayer', 'assets/images/playerSelect.png');
             //buttons
             game.load.image('pig', 'assets/images/pigButton.png');
             game.load.image('pigHover', 'assets/images/pigButtonHover.png');
@@ -34,6 +35,8 @@ var Menu = (function () {
             var background = game.add.image(0, 0, 'blackScreen');
             // adding  makers
             var makers = game.add.image(285, 425,'makers');
+            //adding text
+            game.add.image(0, 5, 'selectPlayer');
 
             // character selection
             piggy = this.add.button(160, 163, 'pig', this.choosePig, this);
