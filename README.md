@@ -14,5 +14,4 @@ stellaval
 vlad_sp
 Ivan_Panchev
 
-
-
+![Alt text](https://github.com/stellaval/Bacardi/blob/master/assets/images/screen.png "bacardi tower");
